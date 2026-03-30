@@ -1,0 +1,2 @@
+# evmcp
+MCP Blockchain Server
