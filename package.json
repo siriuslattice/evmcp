@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "description": "MCP server for multi-chain EVM blockchain data with companion smart contracts",
   "type": "module",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
-    "evmcp": "./build/index.js"
+    "evmcp": "./dist/index.js"
   },
   "files": [
-    "build/",
+    "dist/",
     "README.md",
     "LICENSE"
   ],
