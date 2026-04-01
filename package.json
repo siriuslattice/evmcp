@@ -23,6 +23,7 @@
     "typecheck": "tsc --noEmit",
     "inspect": "pnpm build && npx @modelcontextprotocol/inspector node build/index.js",
     "check-rpcs": "tsx scripts/check-rpcs.ts",
+    "refresh-cache": "tsx scripts/refresh-cache.ts",
     "prepublishOnly": "pnpm run build"
   },
   "keywords": [
