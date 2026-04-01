@@ -23,8 +23,18 @@ const ZERO: ContractAddresses = {
 export const COMPANION_ADDRESSES: Record<SupportedChain, ContractAddresses> = {
   base: { ...ZERO }, // TODO: populate after deployment
   optimism: { ...ZERO }, // TODO: populate after deployment
-  avalanche: { ...ZERO }, // TODO: populate after deployment
-  celo: { ...ZERO }, // TODO: populate after deployment
+  avalanche: {
+    MCPRegistry: "0x62402b65bfb4Fd022285A6FC2F26d8caEEc3D055",
+    BatchQuery: "0xfDc19e0617AdF1811A68Aa1575409F3769f39491",
+    EventAggregator: "0xECE24a53A28F088351EC2Da258f78479e81A8007",
+    CrossChainCache: "0x0899a6Ef23c6B39A4D9B877B219645B89209A670",
+  },
+  celo: {
+    MCPRegistry: "0x62402b65bfb4Fd022285A6FC2F26d8caEEc3D055",
+    BatchQuery: "0xfDc19e0617AdF1811A68Aa1575409F3769f39491",
+    EventAggregator: "0xECE24a53A28F088351EC2Da258f78479e81A8007",
+    CrossChainCache: "0x0899a6Ef23c6B39A4D9B877B219645B89209A670",
+  },
 };
 
 export function isDeployed(chain: SupportedChain, contract: keyof ContractAddresses): boolean {
