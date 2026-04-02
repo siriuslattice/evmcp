@@ -9,11 +9,5 @@ export default defineConfig({
   target: "node20",
   outDir: "dist",
   removeNodeProtocol: false,
-  async onSuccess() {
-    // Strip shebang — Node ESM import() chokes on it in MCP Inspector
-    const fs = await import("fs");
-    const file = "dist/index.js";
-    const content = fs.readFileSync(file, "utf8");
-    fs.writeFileSync(file, content.replace(/^#!.*\n/, ""));
-  },
+  banner: { js: "#!/usr/bin/env node" },
 });
