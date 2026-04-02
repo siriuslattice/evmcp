@@ -19,6 +19,7 @@
     "start": "node dist/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:integration": "RUN_INTEGRATION=true vitest run tests/integration/",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
     "inspect": "pnpm build && npx @modelcontextprotocol/inspector node build/index.js",
