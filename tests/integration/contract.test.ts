@@ -60,4 +60,42 @@ describeIf("Integration: Contract & Token Tools", () => {
     expect(data.symbol).toBe(FIXTURES.celo.cusdSymbol);
     expect(data.decimals).toBe(FIXTURES.celo.cusdDecimals);
   }, 15_000);
+
+  test("getContractCode — companion registry on base", async () => {
+    const handler = captureHandler(registerContractTools, "getContractCode", providers);
+    const result = await handler({
+      address: FIXTURES.base.companionRegistry,
+      chain: "base",
+    });
+    const data = parseResult(result);
+
+    expect(data.isContract).toBe(true);
+    expect(Number(data.bytecodeLength)).toBeGreaterThan(0);
+  }, 15_000);
+
+  test("getERC20Info — USDC on base", async () => {
+    const handler = captureHandler(registerTokenTools, "getERC20Info", providers);
+    const result = await handler({
+      tokenAddress: FIXTURES.base.usdc,
+      chain: "base",
+    });
+    const data = parseResult(result);
+
+    expect(data.name).toBe(FIXTURES.base.usdcName);
+    expect(data.symbol).toBe(FIXTURES.base.usdcSymbol);
+    expect(data.decimals).toBe(FIXTURES.base.usdcDecimals);
+  }, 15_000);
+
+  test("getERC20Info — USDC on optimism", async () => {
+    const handler = captureHandler(registerTokenTools, "getERC20Info", providers);
+    const result = await handler({
+      tokenAddress: FIXTURES.optimism.usdc,
+      chain: "optimism",
+    });
+    const data = parseResult(result);
+
+    expect(data.name).toBe(FIXTURES.optimism.usdcName);
+    expect(data.symbol).toBe(FIXTURES.optimism.usdcSymbol);
+    expect(data.decimals).toBe(FIXTURES.optimism.usdcDecimals);
+  }, 15_000);
 });

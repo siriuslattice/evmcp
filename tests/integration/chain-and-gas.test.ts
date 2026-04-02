@@ -41,4 +41,24 @@ describeIf("Integration: Chain & Gas Tools", () => {
     expect(data.gasPrice).toBeDefined();
     expect(data.symbol).toBe("CELO");
   }, 15_000);
+
+  test("getChainInfo — base returns correct metadata", async () => {
+    const handler = captureHandler(registerChainTools, "getChainInfo", providers);
+    const result = await handler({ chain: "base" });
+    const data = parseResult(result);
+
+    expect(data.chainId).toBe(8453);
+    expect(data.nativeSymbol).toBe("ETH");
+    expect(Number(data.blockNumber)).toBeGreaterThan(10_000_000);
+  }, 15_000);
+
+  test("getGasPrice — optimism returns fee data", async () => {
+    const handler = captureHandler(registerGasTools, "getGasPrice", providers);
+    const result = await handler({ chain: "optimism" });
+    const data = parseResult(result);
+
+    expect(data.chain).toBe("optimism");
+    expect(data.gasPrice).toBeDefined();
+    expect(data.symbol).toBe("ETH");
+  }, 15_000);
 });

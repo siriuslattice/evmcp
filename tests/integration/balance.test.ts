@@ -42,4 +42,32 @@ describeIf("Integration: Balance Tools", () => {
     expect(data.balance).toBeDefined();
     expect(data.balanceFormatted).toBeDefined();
   }, 15_000);
+
+  test("getBalance — WETH contract on base holds ETH", async () => {
+    const handler = captureHandler(registerBalanceTools, "getBalance", providers);
+    const result = await handler({
+      address: FIXTURES.base.weth,
+      chain: "base",
+    });
+    const data = parseResult(result);
+
+    expect(data.chain).toBe("base");
+    expect(data.symbol).toBe("ETH");
+    expect(data.balanceWei).toBeDefined();
+    expect(Number(data.balanceFormatted)).toBeGreaterThan(0);
+  }, 15_000);
+
+  test("getBalance — WETH contract on optimism holds ETH", async () => {
+    const handler = captureHandler(registerBalanceTools, "getBalance", providers);
+    const result = await handler({
+      address: FIXTURES.optimism.weth,
+      chain: "optimism",
+    });
+    const data = parseResult(result);
+
+    expect(data.chain).toBe("optimism");
+    expect(data.symbol).toBe("ETH");
+    expect(data.balanceWei).toBeDefined();
+    expect(Number(data.balanceFormatted)).toBeGreaterThan(0);
+  }, 15_000);
 });
