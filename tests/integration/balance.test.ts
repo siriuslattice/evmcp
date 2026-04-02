@@ -1,4 +1,4 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, beforeAll } from "vitest";
 import { getProviders, captureHandler, parseResult } from "./setup.js";
 import { registerBalanceTools } from "../../src/tools/balance.js";
 import { FIXTURES } from "./fixtures.js";
@@ -7,7 +7,8 @@ const RUN = process.env.RUN_INTEGRATION === "true";
 const describeIf = RUN ? describe : describe.skip;
 
 describeIf("Integration: Balance Tools", () => {
-  const providers = getProviders();
+  let providers: ReturnType<typeof getProviders>;
+  beforeAll(() => { providers = getProviders(); });
 
   test("getBalance — WAVAX contract holds native AVAX", async () => {
     const handler = captureHandler(registerBalanceTools, "getBalance", providers);

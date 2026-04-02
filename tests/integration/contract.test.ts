@@ -1,4 +1,4 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, beforeAll } from "vitest";
 import { getProviders, captureHandler, parseResult } from "./setup.js";
 import { registerContractTools } from "../../src/tools/contract.js";
 import { registerTokenTools } from "../../src/tools/token.js";
@@ -8,7 +8,8 @@ const RUN = process.env.RUN_INTEGRATION === "true";
 const describeIf = RUN ? describe : describe.skip;
 
 describeIf("Integration: Contract & Token Tools", () => {
-  const providers = getProviders();
+  let providers: ReturnType<typeof getProviders>;
+  beforeAll(() => { providers = getProviders(); });
 
   test("getContractCode — companion registry is a contract", async () => {
     const handler = captureHandler(registerContractTools, "getContractCode", providers);

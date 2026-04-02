@@ -1,4 +1,4 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, beforeAll } from "vitest";
 import { getProviders, captureHandler, parseResult } from "./setup.js";
 import { registerChainTools } from "../../src/tools/chain.js";
 import { registerGasTools } from "../../src/tools/gas.js";
@@ -7,7 +7,8 @@ const RUN = process.env.RUN_INTEGRATION === "true";
 const describeIf = RUN ? describe : describe.skip;
 
 describeIf("Integration: Chain & Gas Tools", () => {
-  const providers = getProviders();
+  let providers: ReturnType<typeof getProviders>;
+  beforeAll(() => { providers = getProviders(); });
 
   test("healthCheck — all RPCs reachable", async () => {
     const handler = captureHandler(registerChainTools, "healthCheck", providers);

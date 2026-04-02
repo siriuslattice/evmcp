@@ -8,10 +8,11 @@ const RUN = process.env.RUN_INTEGRATION === "true";
 const describeIf = RUN ? describe : describe.skip;
 
 describeIf("Integration: Block & Transaction Tools", () => {
-  const providers = getProviders();
+  let providers: ReturnType<typeof getProviders>;
   let knownTxHash: string;
 
   beforeAll(async () => {
+    providers = getProviders();
     // Fetch a known block to get a stable tx hash
     const handler = captureHandler(registerBlockTools, "getBlockByNumber", providers);
     const result = await handler({
