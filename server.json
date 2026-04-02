@@ -1,0 +1,19 @@
+{
+  "$schema": "https://registry.modelcontextprotocol.io/schema/server.json",
+  "namespace": "io.github.SiriusLattice",
+  "name": "evmcp",
+  "version": "0.1.1",
+  "description": "Multi-chain EVM blockchain data server with companion smart contracts",
+  "repository": "https://github.com/SiriusLattice/evmcp",
+  "transport": ["stdio"],
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": true
+  },
+  "install": {
+    "npm": "evmcp"
+  },
+  "categories": ["blockchain", "web3", "data"],
+  "tags": ["ethereum", "base", "optimism", "avalanche", "celo", "evm", "cross-chain"]
+}
