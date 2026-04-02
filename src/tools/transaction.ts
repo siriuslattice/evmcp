@@ -1,5 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import { decodeFunctionData } from "viem";
 import type { Providers } from "../providers/multi-chain.js";
 import { formatError } from "../utils/errors.js";
 import { cache } from "../utils/cache.js";
@@ -87,6 +88,71 @@ export function registerTransactionTools(server: McpServer, providers: Providers
         return result;
       } catch (error) {
         return formatError("getTransactionReceipt", chain, error);
+      }
+    },
+  );
+
+  server.registerTool(
+    "decodeTransaction",
+    {
+      title: "Decode Transaction",
+      description:
+        "Decode a transaction's function call using a provided ABI. Falls back to raw input data if decoding fails.",
+      inputSchema: {
+        txHash: z.string().regex(/^0x[a-fA-F0-9]{64}$/, "Must be a valid transaction hash"),
+        chain: z.enum(SUPPORTED_CHAINS).describe("Target blockchain"),
+        abi: z.array(z.any()).optional().describe("Contract ABI for decoding (JSON array)"),
+      },
+      annotations: { readOnlyHint: true, openWorldHint: false },
+    },
+    async ({ txHash, chain, abi }) => {
+      try {
+        const client = providers.getClient(chain);
+        const tx = await client.getTransaction({ hash: txHash as `0x${string}` });
+
+        const response: Record<string, unknown> = {
+          chain,
+          txHash,
+          from: tx.from,
+          to: tx.to,
+          value: tx.value.toString(),
+          inputData: tx.input,
+        };
+
+        if (abi && tx.input && tx.input !== "0x") {
+          try {
+            const decoded = decodeFunctionData({ abi, data: tx.input });
+            response.decoded = {
+              functionName: decoded.functionName,
+              args: JSON.parse(
+                JSON.stringify(decoded.args, (_k, v) =>
+                  typeof v === "bigint" ? v.toString() : v,
+                ),
+              ),
+            };
+          } catch {
+            response.decoded = null;
+            response.decodeError = "ABI does not match transaction input data";
+          }
+        } else if (!abi && tx.input && tx.input !== "0x") {
+          response.functionSelector = tx.input.slice(0, 10);
+          response.decoded = null;
+          response.decodeError = "No ABI provided — showing raw function selector";
+        } else {
+          response.decoded = null;
+          response.decodeError = "No input data (native transfer)";
+        }
+
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(response, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        return formatError("decodeTransaction", chain, error);
       }
     },
   );
