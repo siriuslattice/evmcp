@@ -11,3 +11,4 @@ contracts/lib/
 *.log
 .DS_Store
 coverage/
+.mcpregistry_*
