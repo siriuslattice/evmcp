@@ -1,6 +1,7 @@
 {
   "name": "evmcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
+  "mcpName": "io.github.siriuslattice/evmcp",
   "description": "MCP server for multi-chain EVM blockchain data with companion smart contracts",
   "type": "module",
   "main": "./dist/index.js",
