@@ -37,6 +37,14 @@ const SUPPORTED_CHAINS_DATA = {
       blockExplorer: "https://celoscan.io",
       companionContracts: COMPANION_ADDRESSES.celo,
     },
+    {
+      name: "Arbitrum One",
+      chain: "arbitrum",
+      chainId: 42161,
+      nativeSymbol: "ETH",
+      blockExplorer: "https://arbiscan.io",
+      companionContracts: COMPANION_ADDRESSES.arbitrum,
+    },
   ],
   ensChain: {
     name: "Ethereum",

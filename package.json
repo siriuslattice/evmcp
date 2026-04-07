@@ -1,6 +1,6 @@
 {
   "name": "evmcp",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "mcpName": "io.github.siriuslattice/evmcp",
   "description": "MCP server for multi-chain EVM blockchain data with companion smart contracts",
   "type": "module",
@@ -41,7 +41,9 @@
     "llm",
     "web3",
     "evm",
-    "cross-chain"
+    "cross-chain",
+    "arbitrum",
+    "x402"
   ],
   "license": "MIT",
   "repository": {
@@ -54,12 +56,18 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.28.0",
     "dotenv": "^16.4.0",
+    "express": "^5.2.1",
     "viem": "^2.39.0",
     "zod": "^3.25.0"
+  },
+  "optionalDependencies": {
+    "@x402/core": "^2.9.0",
+    "@x402/evm": "^2.9.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@modelcontextprotocol/inspector": "^0.7.0",
+    "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
     "eslint": "^9.0.0",
     "prettier": "^3.5.0",

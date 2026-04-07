@@ -46,4 +46,17 @@ export const FIXTURES = {
     companionRegistry: "0x62402b65bfb4Fd022285A6FC2F26d8caEEc3D055" as `0x${string}`,
     knownBlock: 100_000_000,
   },
+  arbitrum: {
+    chain: "arbitrum" as const,
+    usdc: "0xaf88d065e77c8cC2239327C5EDb3A432268e5831" as `0x${string}`,
+    usdcName: "USD Coin",
+    usdcSymbol: "USDC",
+    usdcDecimals: 6,
+    weth: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1" as `0x${string}`,
+    wethName: "Wrapped Ether",
+    wethSymbol: "WETH",
+    wethDecimals: 18,
+    arbToken: "0x912CE59144191C1204E64559FE8253a0e49E6548" as `0x${string}`,
+    knownBlock: 200_000_000,
+  },
 };

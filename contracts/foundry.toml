@@ -11,14 +11,17 @@ base = "${BASE_RPC_URL}"
 optimism = "${OPTIMISM_RPC_URL}"
 avalanche = "${AVALANCHE_RPC_URL}"
 celo = "${CELO_RPC_URL}"
+arbitrum = "${ARBITRUM_RPC_URL}"
 fuji = "https://api.avax-test.network/ext/bc/C/rpc"
 alfajores = "https://alfajores-forno.celo-testnet.org"
+arbitrum_sepolia = "https://sepolia-rollup.arbitrum.io/rpc"
 
 [etherscan]
 base = { key = "${BASESCAN_KEY}", url = "https://api.basescan.org/api" }
 optimism = { key = "${OPSCAN_KEY}", url = "https://api-optimistic.etherscan.io/api" }
 avalanche = { key = "${SNOWSCAN_KEY}", url = "https://api.snowscan.xyz/api" }
 celo = { key = "${CELOSCAN_KEY}", url = "https://api.celoscan.io/api" }
+arbitrum = { key = "${ARBISCAN_KEY}", url = "https://api.arbiscan.io/api" }
 
 [fmt]
 line_length = 120

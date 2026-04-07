@@ -44,6 +44,7 @@ describe("config", () => {
     delete process.env.OPTIMISM_RPC_URL;
     delete process.env.AVALANCHE_RPC_URL;
     delete process.env.CELO_RPC_URL;
+    delete process.env.ARBITRUM_RPC_URL;
     const { loadConfig } = await import("../../src/config.js");
     expect(() => loadConfig()).toThrow();
   });

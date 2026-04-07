@@ -314,12 +314,12 @@ describe("Tool Registration", () => {
   });
 
   describe("registerAllTools", () => {
-    it("registers all 28 tools via registerAllTools", () => {
+    it("registers all 29 tools via registerAllTools", () => {
       const server = createMockServer();
       registerAllTools(server as never, createMockProviders(), createMockConfig());
 
       const tools = server.getRegisteredTools();
-      expect(tools).toHaveLength(28);
+      expect(tools).toHaveLength(29);
     });
 
     it("registers tools with unique names", () => {

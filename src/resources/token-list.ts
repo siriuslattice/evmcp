@@ -8,6 +8,7 @@ const CHAIN_ID_MAP: Record<string, SupportedChain> = {
   "10": "optimism",
   "43114": "avalanche",
   "42220": "celo",
+  "42161": "arbitrum",
 };
 
 const SUPPORTED_CHAIN_IDS = Object.keys(CHAIN_ID_MAP);
@@ -48,6 +49,13 @@ const POPULAR_TOKENS: Record<SupportedChain, TokenInfo[]> = {
     { symbol: "cUSD", name: "Celo Dollar", address: "0x765DE816845861e75A25fCA122bb6898B8B1282a", decimals: 18 },
     { symbol: "cEUR", name: "Celo Euro", address: "0xD8763CBa276a3738E6DE85b4b3bF5FDed6D6cA73", decimals: 18 },
     { symbol: "WETH", name: "Wrapped Ether", address: "0x66803FB87aBd4aaC3cbB3fAd7C3aa01f6F3FB207", decimals: 18 },
+  ],
+  arbitrum: [
+    { symbol: "ARB", name: "Arbitrum", address: "0x912CE59144191C1204E64559FE8253a0e49E6548", decimals: 18 },
+    { symbol: "USDC", name: "USD Coin", address: "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", decimals: 6 },
+    { symbol: "USDT", name: "Tether USD", address: "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9", decimals: 6 },
+    { symbol: "WETH", name: "Wrapped Ether", address: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1", decimals: 18 },
+    { symbol: "GMX", name: "GMX", address: "0xfc5A1A6EB076a2C7aD06eD22C90d7E710E35ad0a", decimals: 18 },
   ],
 };
 

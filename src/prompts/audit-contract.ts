@@ -1,7 +1,7 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
-const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo"] as const;
+const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo", "arbitrum"] as const;
 
 /** Registers the audit-contract prompt */
 export function registerAuditContractPrompt(server: McpServer) {

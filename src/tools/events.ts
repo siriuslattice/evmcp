@@ -4,7 +4,7 @@ import { decodeEventLog as viemDecodeEventLog } from "viem";
 import type { Providers } from "../providers/multi-chain.js";
 import { formatError } from "../utils/errors.js";
 
-const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo"] as const;
+const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo", "arbitrum"] as const;
 
 export function registerEventTools(server: McpServer, providers: Providers) {
   server.registerTool(

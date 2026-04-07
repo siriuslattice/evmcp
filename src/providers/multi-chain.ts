@@ -1,11 +1,17 @@
 import { createPublicClient, http, type PublicClient, type Chain } from "viem";
-import { mainnet, base, optimism, avalanche, celo } from "viem/chains";
-import { baseSepolia, optimismSepolia, avalancheFuji, celoAlfajores } from "viem/chains";
+import { mainnet, base, optimism, avalanche, celo, arbitrum } from "viem/chains";
+import {
+  baseSepolia,
+  optimismSepolia,
+  avalancheFuji,
+  celoAlfajores,
+  arbitrumSepolia,
+} from "viem/chains";
 import type { Config } from "../config.js";
 import { resolveRpcUrl } from "./rpc-config.js";
 import { logger } from "../utils/logger.js";
 
-export type SupportedChain = "base" | "optimism" | "avalanche" | "celo";
+export type SupportedChain = "base" | "optimism" | "avalanche" | "celo" | "arbitrum";
 export type AllChains = SupportedChain | "ethereum";
 
 const CHAIN_MAP: Record<AllChains, Chain> = {
@@ -14,6 +20,7 @@ const CHAIN_MAP: Record<AllChains, Chain> = {
   optimism: optimism,
   avalanche: avalanche,
   celo: celo,
+  arbitrum: arbitrum,
 };
 
 const TESTNET_MAP: Record<AllChains, Chain> = {
@@ -22,6 +29,7 @@ const TESTNET_MAP: Record<AllChains, Chain> = {
   optimism: optimismSepolia,
   avalanche: avalancheFuji,
   celo: celoAlfajores,
+  arbitrum: arbitrumSepolia,
 };
 
 export interface Providers {
@@ -51,12 +59,12 @@ export function createProviders(config: Config): Providers {
   }
 
   function getAllL2Clients() {
-    const l2Chains: SupportedChain[] = ["base", "optimism", "avalanche", "celo"];
+    const l2Chains: SupportedChain[] = ["base", "optimism", "avalanche", "celo", "arbitrum"];
     return l2Chains.map((chain) => ({ chain, client: getClient(chain) }));
   }
 
   async function healthCheck(): Promise<Record<AllChains, boolean>> {
-    const chains: AllChains[] = ["ethereum", "base", "optimism", "avalanche", "celo"];
+    const chains: AllChains[] = ["ethereum", "base", "optimism", "avalanche", "celo", "arbitrum"];
     const results = await Promise.allSettled(
       chains.map(async (chain) => {
         const client = getClient(chain);

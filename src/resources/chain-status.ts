@@ -9,6 +9,7 @@ const CHAIN_ID_MAP: Record<string, SupportedChain> = {
   "10": "optimism",
   "43114": "avalanche",
   "42220": "celo",
+  "42161": "arbitrum",
 };
 
 const SUPPORTED_CHAIN_IDS = Object.keys(CHAIN_ID_MAP);

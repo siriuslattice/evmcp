@@ -13,19 +13,24 @@ const providers = createProviders(config);
 
 const server = new McpServer({
   name: "evmcp",
-  version: "0.1.0",
+  version: "0.2.0",
 });
 
 registerAllTools(server, providers, config);
 registerAllResources(server, providers, config);
 registerAllPrompts(server);
 
-const transport = new StdioServerTransport();
-
 async function main() {
   logger.info("EVMCP server starting...");
-  await server.connect(transport);
-  logger.info("EVMCP server connected via stdio");
+
+  if (config.TRANSPORT === "http") {
+    const { startHttpTransport } = await import("./transports/http.js");
+    await startHttpTransport(server, config.HTTP_PORT, config);
+  } else {
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    logger.info("EVMCP server connected via stdio");
+  }
 }
 
 main().catch((error) => {

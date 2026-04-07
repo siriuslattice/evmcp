@@ -7,7 +7,7 @@ import { cache } from "../utils/cache.js";
 import { nativeSymbol } from "../utils/formatters.js";
 import ERC20ABI from "../contracts/abis/ERC20.json" with { type: "json" };
 
-const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo"] as const;
+const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo", "arbitrum"] as const;
 
 export function registerBalanceTools(server: McpServer, providers: Providers) {
   server.registerTool(

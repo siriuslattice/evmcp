@@ -5,7 +5,7 @@ import type { Providers } from "../providers/multi-chain.js";
 import { formatError } from "../utils/errors.js";
 import { cache } from "../utils/cache.js";
 
-const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo"] as const;
+const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo", "arbitrum"] as const;
 
 function serializeBigInts(obj: unknown): Record<string, unknown> {
   return JSON.parse(

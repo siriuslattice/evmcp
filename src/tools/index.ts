@@ -13,6 +13,7 @@ import { registerChainTools } from "./chain.js";
 import { registerBatchTools } from "./batch.js";
 import { registerCrossChainTools } from "./cross-chain.js";
 import { registerRegistryTools } from "./registry.js";
+import { registerOptimizerTools } from "./optimizer.js";
 
 export function registerAllTools(server: McpServer, providers: Providers, _config: Config) {
   registerBalanceTools(server, providers);
@@ -27,4 +28,5 @@ export function registerAllTools(server: McpServer, providers: Providers, _confi
   registerBatchTools(server, providers);
   registerCrossChainTools(server, providers);
   registerRegistryTools(server, providers);
+  registerOptimizerTools(server, providers);
 }

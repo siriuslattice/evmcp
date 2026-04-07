@@ -2,11 +2,11 @@
 
 > EVM + MCP — give your AI assistant blockchain superpowers.
 
-MCP server providing real-time access to on-chain data across Base, Optimism, Avalanche, and Celo, with companion smart contracts deployed on-chain for batch queries and cross-chain data.
+MCP server providing real-time access to on-chain data across Base, Optimism, Avalanche, Celo, and Arbitrum, with companion smart contracts deployed on-chain for batch queries and cross-chain data.
 
 ## How it Works
 
-EVMCP implements the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP), a standard that lets AI assistants call external tools. When connected, your AI assistant gains 28 read-only blockchain tools it can invoke to query balances, decode transactions, compare gas prices, and more across four EVM chains.
+EVMCP implements the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP), a standard that lets AI assistants call external tools. When connected, your AI assistant gains 28 read-only blockchain tools it can invoke to query balances, decode transactions, compare gas prices, and more across five EVM chains.
 
 What sets EVMCP apart is its **companion smart contracts** — four Solidity contracts deployed on Avalanche and Celo that enable batch queries via Multicall3, an on-chain tool registry, event aggregation, and cross-chain balance caching. The MCP server reads from these contracts; all write operations are performed separately by an admin CLI.
 
@@ -39,17 +39,18 @@ claude mcp add evmcp -- npx -y evmcp
 | Optimism | 10 | ETH | Not yet deployed |
 | Avalanche C-Chain | 43114 | AVAX | Deployed |
 | Celo | 42220 | CELO | Deployed |
+| Arbitrum One | 42161 | ETH | Not yet deployed |
 
 Ethereum mainnet (chain ID 1) is also supported for ENS resolution only.
 
-## Tools (28 total)
+## Tools (29 total)
 
 ### Balance (3)
 | Tool | Description |
 |------|-------------|
 | `getBalance` | Get the native token balance (ETH/AVAX/CELO) of an address on a specific chain |
 | `getTokenBalance` | Get the ERC20 token balance of an address on a specific chain |
-| `getMultiChainBalance` | Get the native token balance of an address across all 4 supported chains in parallel |
+| `getMultiChainBalance` | Get the native token balance of an address across all 5 supported chains in parallel |
 
 ### Block (3)
 | Tool | Description |
@@ -83,7 +84,7 @@ Ethereum mainnet (chain ID 1) is also supported for ENS resolution only.
 |------|-------------|
 | `getGasPrice` | Get current gas price and EIP-1559 fee data for a specific chain |
 | `estimateGas` | Estimate gas for a transaction on a specific chain |
-| `compareGasAcrossChains` | Compare current gas prices across all 4 supported chains |
+| `compareGasAcrossChains` | Compare current gas prices across all 5 supported chains |
 
 ### ENS (2)
 | Tool | Description |
@@ -101,8 +102,8 @@ Ethereum mainnet (chain ID 1) is also supported for ENS resolution only.
 | Tool | Description |
 |------|-------------|
 | `getChainInfo` | Get chain name, chain ID, current block number, block time, and native symbol |
-| `isContractDeployed` | Check if an address has contract code deployed on all 4 supported chains |
-| `healthCheck` | Test connectivity to all 5 RPC endpoints (Ethereum, Base, Optimism, Avalanche, Celo) |
+| `isContractDeployed` | Check if an address has contract code deployed on all 5 supported chains |
+| `healthCheck` | Test connectivity to all 6 RPC endpoints (Ethereum, Base, Optimism, Avalanche, Celo, Arbitrum) |
 
 ### Batch (1)
 | Tool | Description |
@@ -112,13 +113,18 @@ Ethereum mainnet (chain ID 1) is also supported for ENS resolution only.
 ### Cross-Chain (2)
 | Tool | Description |
 |------|-------------|
-| `compareBalances` | Compare native token balances for an address across all 4 chains |
-| `crossChainActivity` | Check transaction counts for an address across all 4 chains |
+| `compareBalances` | Compare native token balances for an address across all 5 chains |
+| `crossChainActivity` | Check transaction counts for an address across all 5 chains |
 
 ### Registry (1)
 | Tool | Description |
 |------|-------------|
 | `queryRegistry` | Read registered tool metadata from the on-chain MCPRegistry companion contract |
+
+### Optimizer (1)
+| Tool | Description |
+|------|-------------|
+| `gasOptimizer` | Recommends the cheapest chain for a transaction, accounting for L1 data fees on Base/Optimism/Arbitrum |
 
 ## Resources (4)
 
@@ -129,7 +135,7 @@ Ethereum mainnet (chain ID 1) is also supported for ENS resolution only.
 | `chain://{chainId}/tokens/popular` | Popular token addresses and decimals (hardcoded for v1) | 1 hour |
 | `evmcp://chains` | All supported chains with IDs, symbols, and companion contract addresses | Static |
 
-Supported chain IDs for templated resources: `8453` (Base), `10` (Optimism), `43114` (Avalanche), `42220` (Celo).
+Supported chain IDs for templated resources: `8453` (Base), `10` (Optimism), `43114` (Avalanche), `42220` (Celo), `42161` (Arbitrum).
 
 ## Prompts (4)
 
@@ -178,13 +184,21 @@ Four Solidity contracts are deployed on Avalanche and Celo. The MCP server reads
 | `OPTIMISM_RPC_URL` | No* | Override RPC URL for Optimism |
 | `AVALANCHE_RPC_URL` | No* | Override RPC URL for Avalanche |
 | `CELO_RPC_URL` | No* | Override RPC URL for Celo |
+| `ARBITRUM_RPC_URL` | No* | Override RPC URL for Arbitrum |
 | `ETHEREUM_RPC_URL` | No | Override RPC URL for ENS resolution |
 | `CACHE_TTL_SECONDS` | No | Cache TTL in seconds (default: 15) |
 | `CACHE_MAX_ENTRIES` | No | Max cache entries (default: 1000) |
 | `LOG_LEVEL` | No | debug, info, warn, or error (default: info) |
 | `USE_TESTNETS` | No | Use testnet chains (default: false) |
 
-*Provide either `ALCHEMY_API_KEY` or all four individual chain RPC URLs.
+| `TRANSPORT` | No | `stdio` (default) or `http` for Streamable HTTP transport |
+| `HTTP_PORT` | No | Port for HTTP transport (default: 3402) |
+| `X402_ENABLED` | No | Enable x402 payment gating on HTTP transport |
+| `X402_PAYEE_ADDRESS` | No** | USDC receive address on Base |
+| `X402_FACILITATOR_URL` | No | x402 facilitator URL (has default) |
+
+*Provide either `ALCHEMY_API_KEY` or all five individual chain RPC URLs.
+**Required when `X402_ENABLED=true`.
 
 ## Development
 

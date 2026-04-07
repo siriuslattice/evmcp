@@ -8,6 +8,7 @@ const ALCHEMY_PREFIXES: Record<AllChains, string> = {
   optimism: "opt-mainnet",
   avalanche: "avax-mainnet",
   celo: "celo-mainnet",
+  arbitrum: "arb-mainnet",
 };
 
 const PUBLIC_FALLBACKS: Record<AllChains, string> = {
@@ -16,6 +17,7 @@ const PUBLIC_FALLBACKS: Record<AllChains, string> = {
   optimism: "https://mainnet.optimism.io",
   avalanche: "https://api.avax.network/ext/bc/C/rpc",
   celo: "https://forno.celo.org",
+  arbitrum: "https://arb1.arbitrum.io/rpc",
 };
 
 export function resolveRpcUrl(chain: AllChains, config: Config): string {
@@ -25,6 +27,7 @@ export function resolveRpcUrl(chain: AllChains, config: Config): string {
     optimism: config.OPTIMISM_RPC_URL,
     avalanche: config.AVALANCHE_RPC_URL,
     celo: config.CELO_RPC_URL,
+    arbitrum: config.ARBITRUM_RPC_URL,
   };
 
   if (overrides[chain]) return overrides[chain]!;

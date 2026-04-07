@@ -5,7 +5,7 @@ import { formatError } from "../utils/errors.js";
 import { cache } from "../utils/cache.js";
 import { nativeSymbol } from "../utils/formatters.js";
 
-const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo"] as const;
+const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo", "arbitrum"] as const;
 
 const CHAIN_INFO: Record<
   SupportedChain,
@@ -15,6 +15,7 @@ const CHAIN_INFO: Record<
   optimism: { name: "Optimism", chainId: 10, blockTime: "~2s" },
   avalanche: { name: "Avalanche C-Chain", chainId: 43114, blockTime: "~2s" },
   celo: { name: "Celo", chainId: 42220, blockTime: "~5s" },
+  arbitrum: { name: "Arbitrum One", chainId: 42161, blockTime: "~0.25s" },
 };
 
 export function registerChainTools(server: McpServer, providers: Providers) {

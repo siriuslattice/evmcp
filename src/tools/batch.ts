@@ -4,7 +4,7 @@ import type { Providers } from "../providers/multi-chain.js";
 import { formatError } from "../utils/errors.js";
 import { executeBatchQuery } from "../contracts/interactions.js";
 
-const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo"] as const;
+const SUPPORTED_CHAINS = ["base", "optimism", "avalanche", "celo", "arbitrum"] as const;
 
 export function registerBatchTools(server: McpServer, providers: Providers) {
   server.registerTool(
